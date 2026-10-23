@@ -45,7 +45,7 @@
   const SQUASH_MAX       = 0.30;  // 最大挤压变形
 
   /* 水果链：索引越大越大
-     file : assets/fruits/ 下的贴图（由 tools/normalize_assets.py 统一生成）
+     file : 图/ 下对应等级的绿猫贴图
      c1/c2: 贴图缺失时的程序化水果配色
      pc1/pc2: 粒子/汁水的颜色（取自贴图主体平均色） */
   const ASSET_FILL = 0.92;   // 贴图里主体占画布长边的比例，与生成脚本保持一致
@@ -240,7 +240,7 @@
 
   /* ---------------------------------------------------------
    *  碰撞形状（按图片轮廓生成，不是圆形）
-   *  assets/fruits/parts.js 由 tools/build_parts.py 从贴图的 alpha 轮廓算出：
+   *  assets/fruits/parts.js 保存已确认的多圆碰撞参数：
    *  parts = [[ox, oy, s], ...] 单位是「以 r 为 1」，rb = 碰撞包围圆半径。
    *  没有数据时退化成单个半径 r 的圆，和老版本行为一致。
    * ------------------------------------------------------- */
@@ -1186,18 +1186,6 @@
     drawBoard();
     drawBalls();
     drawAim();
-    if (window.CAT_SHOW_COLLIDERS) {
-      ctx.save(); ctx.lineWidth = 1.5; ctx.strokeStyle = '#059669';
-      ctx.fillStyle = 'rgba(5,150,105,.12)';
-      for (const b of state.balls) {
-        ctx.save(); ctx.translate(b.x,b.y); ctx.rotate(b.angle);
-        for (const p of b.parts) {
-          ctx.beginPath(); ctx.arc(p[0]*b.r,p[1]*b.r,p[2]*b.r,0,Math.PI*2); ctx.fill(); ctx.stroke();
-        }
-        ctx.restore();
-      }
-      ctx.restore();
-    }
     /* 定格期间把特效的 dt 也压成 0，让它跟世界一起停住 */
     drawEffects(state.freeze > 0 ? 0 : dt);
 

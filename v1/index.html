@@ -12,7 +12,7 @@
 <!-- ↓ Monetag 站点验证：把后台给的 meta 标签粘在下面这一行 ↓ -->
 
 <title>合成大绿猫</title>
-<link rel="stylesheet" href="fonts.css"><link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="fonts.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="garden.css">
 </head>
 <body>
 
@@ -66,18 +66,18 @@
   <!-- ===== 侧边面板 ===== -->
   <aside class="panel">
 
-    <header class="panel-head">
+    <header class="panel-head"><img class="garden-mascot" src="../图/1.png" alt="" aria-hidden="true">
       <h1>合成大绿猫</h1>
       <p class="subtitle">相同的撞在一起，越合越大</p>
     </header>
 
     <div class="stats">
       <div class="stat">
-        <span class="stat-label">分数</span>
+        <span class="stat-label"><span aria-hidden="true">✿</span> 分数</span>
         <strong class="stat-value" id="score">0</strong>
       </div>
       <div class="stat">
-        <span class="stat-label">最高分</span>
+        <span class="stat-label"><span aria-hidden="true">♛</span> 最高分</span>
         <strong class="stat-value stat-best" id="best">0</strong>
       </div>
     </div>
@@ -94,7 +94,6 @@
     </div>
 
     <div class="actions">
-      <a class="btn btn-wide" href="editor.html">编辑碰撞范围</a>
       <button class="btn" id="soundBtn" type="button" aria-pressed="true">
         <span class="ico">🔊</span><span class="lbl">音效开</span>
       </button>
@@ -113,15 +112,12 @@
 
 </main>
 
-<!-- 碰撞形状数据（按贴图轮廓自动生成，由 tools/build_parts.py 产出） -->
+<!-- 已确认的 11 级碰撞配置，来自用户导出的 parts.js。 -->
 <script src="assets/fruits/parts.js"></script>
-<!-- 极模糊占位图（内联 data URL，由 tools/make_blur.py 产出）：贴图没到位时先画它 -->
-<script src="collision-config.js"></script>
-<script src="game-bridge.js"></script>
 <script src="game.js"></script>
-<!-- 排行榜 -->
 
-<!-- 赞助作者 -->
+
+
 
 </body>
 </html>

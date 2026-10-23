@@ -1,0 +1,93 @@
+/* 小猫花园：游戏展示层，保留原有画布和交互。 */
+body {
+  background: radial-gradient(ellipse at 12% 16%, #d5ebc2 0, transparent 42%),
+    radial-gradient(ellipse at 90% 88%, #d4e9cf 0, transparent 40%), #f2f7e9;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none;
+  background-image: radial-gradient(#87a97130 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(90deg, #000, transparent 38%, transparent 62%, #000);
+}
+.app { gap: 26px; align-items: stretch; position: relative; }
+.stage {
+  height: min(88vh, 710px); border: 7px solid #fbfff5; border-radius: 36px;
+  box-shadow: 0 9px 0 #c8dab7, 0 22px 48px #38582c20, 0 0 0 1px #bdcfae;
+}
+.garden-sign {
+  position: absolute; top: 15px; left: 16px; z-index: 1; pointer-events: none;
+  padding: 6px 11px; border-radius: 12px 12px 12px 3px;
+  color: #6c895b; background: #fbfff0db; border: 1px solid #d6e5c8;
+  font: 13px var(--font-cute); letter-spacing: .04em;
+}
+.garden-sign span { color: #88ac68; margin-left: 5px; }
+.revive-chip { top: 54px; }
+.panel {
+  width: 340px; padding: 23px; gap: 14px; border-radius: 32px;
+  background: #fbfdf5f2; border: 2px solid #fff;
+  box-shadow: 0 8px 0 #dbe7ce, 0 20px 45px #38582c12;
+}
+.panel-head { position: relative; min-height: 92px; padding: 3px 0 4px; }
+.garden-kicker { font: 11px var(--font-cute); letter-spacing: .14em; color: #849c6e; margin-bottom: 9px; }
+.panel-head h1 { font-size: 30px; letter-spacing: .04em; color: #416b35; }
+.subtitle { font-size: 11px; margin-top: 8px; color: #80916e; }
+.garden-mascot { position: absolute; right: -6px; top: 4px; width: 72px; height: 80px; object-fit: contain; transform: rotate(9deg); filter: drop-shadow(0 4px 0 #dce8ce); }
+.stats { gap: 12px; }
+.stat { position: relative; padding: 12px 14px; border-radius: 19px; border: 1px solid #d8e6ca; background: #edf5e2; box-shadow: 0 3px 0 #dae6cc; }
+.stat:nth-child(2) { background: #f5f5e5; border-color: #e4e6cc; box-shadow: 0 3px 0 #e3e5ce; }
+.stat-label { font-size: 12px; color: #718560; }
+.stat-label>span { margin-right: 4px; color: #8aa86b; }
+.stat-value { font-size: 32px; margin-top: 5px; color: #416b35; }
+.next-box, .chain-box { border: 1px solid #dfE9d4; border-radius: 21px; background: #fffef8; box-shadow: 0 3px 0 #e8eddc; }
+.next-box { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; min-height: 102px; background: radial-gradient(circle at 81% 50%, #edf5e0 0 36px, transparent 37px), #fffef8; }
+.box-label { font: 15px var(--font-cute); color: #557348; letter-spacing: .03em; }
+.card-caption { font-size: 11px; color: #94a185; }
+#next { margin: 0; width: 70px; height: 70px; transform: rotate(-6deg); }
+.chain-box { padding: 14px; }
+.label-note { float: right; font: 10px 'Microsoft YaHei', sans-serif; color: #93a082; padding-top: 3px; }
+#chain { margin: 12px 0 7px; }
+.chain-note { font-size: 10px; line-height: 1.8; margin: 7px 0 0; padding-top: 9px; border-top: 1px dashed #dce6cf; }
+.actions { gap: 11px; margin-top: 2px; }
+.btn { display: flex; align-items: center; justify-content: center; min-height: 45px; border-radius: 16px; border: 1px solid #d5e2c6; background: #f8fbed; box-shadow: 0 4px 0 #d6e2c7; color: #5a7547; transition: transform .16s, box-shadow .16s; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #d6e2c7; background: #f0f7df; }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #d6e2c7; }
+.btn-primary { background: linear-gradient(#86ac68, #68924e); border-color: #709452; color: #fff; box-shadow: 0 4px 0 #4f763d; text-shadow: 0 1px 1px #45683540; }
+.btn-primary:hover { background: #7ba45d; box-shadow: 0 6px 0 #4f763d; }
+.tips { margin-top: auto; font-size: 10px; color: #8b9a7b; line-height: 1.85; }
+.dialog { border: 2px solid #fff; background: #f9fced; box-shadow: 0 7px 0 #cbdcba, 0 20px 46px #23452030; border-radius: 28px; }
+.dialog-actions .btn { display: inline-flex; }
+@media (max-width: 860px) and (orientation: portrait) {
+  body { padding: calc(12px + var(--safe-t)) 12px calc(12px + var(--safe-b)); }
+  .app { gap: 14px; }
+  .panel { display: grid; grid-template-columns: 1fr auto; width: min(100%, 460px); padding: 12px 14px; border-radius: 23px; gap: 10px 12px; flex: 0 0 auto; }
+  .panel-head { display: block; grid-column: 1 / -1; min-height: 39px; padding: 0; }
+  .garden-kicker { font-size: 9px; margin-bottom: 3px; }
+  .panel-head h1 { font-size: 23px; line-height: 1.2; }
+  .garden-mascot { width: 50px; height: 50px; top: -7px; right: 0; }
+  .subtitle { display: none; }
+  .stats { gap: 8px; }
+  .stat { padding: 7px 9px; border-radius: 13px; }
+  .stat-label { font-size: 10px; white-space: nowrap; letter-spacing: 0; }
+  .stat-value { font-size: 23px; margin-top: 3px; }
+  .actions { display: grid; grid-template-columns: 40px 76px; gap: 6px; margin: 0; align-content: center; }
+  .actions .btn { min-height: 42px; padding: 0 6px; font-size: 13px; border-radius: 13px; }
+  #soundBtn { min-width: 40px; font-size: 16px; }
+  .next-box, .chain-box, .tips { display: none; }
+  .stage { height: min(calc(var(--vh) - 192px - var(--safe-t) - var(--safe-b)), calc((100vw - 30px) * 700 / 420)); margin: auto 0; border-width: 5px; border-radius: 26px; max-width: 100%; }
+  .garden-sign { top: 12px; left: 12px; font-size: 11px; }
+}
+@media (max-height: 720px) and (min-width: 861px) {
+  .panel { gap: 9px; padding: 17px; }
+  .panel-head { min-height: 77px; }
+  .next-box { min-height: 80px; padding: 6px 16px; }
+  #next { width: 60px; height: 60px; }
+  .chain-box { padding: 10px 14px; }
+  #chain { margin: 5px 0; }
+  .tips { display: none; }
+}
+@media (max-width: 860px) and (orientation: landscape) {
+  .panel { width: min(260px, 33vw); padding: 12px; gap: 9px; }
+  .panel-head, .next-box, .chain-box, .tips { display: none; }
+  .stage { height: calc(var(--vh) - 32px); }
+  .garden-sign { font-size: 10px; top: 10px; left: 10px; }
+}
