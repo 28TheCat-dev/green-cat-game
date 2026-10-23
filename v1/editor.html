@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>合成大绿猫 · 碰撞编辑器</title><link rel="stylesheet" href="editor.css"></head>
+<body>
+<header class="top"><div><span class="eyebrow">GREEN CAT LAB</span><h1>合成大绿猫 <span>碰撞编辑器</span></h1></div><div class="top-actions"><button id="save">保存到浏览器</button><button id="play" class="primary">保存并试玩 ↗</button></div></header>
+<main class="workspace">
+ <aside class="card library"><div class="section-head"><h2>角色等级</h2><span>11 张</span></div><p class="muted">按文件名 1～11 排列</p><nav id="levels" aria-label="选择角色等级"></nav></aside>
+ <section class="card edit-area"><div class="section-head"><div><span class="eyebrow" id="levelTag">LEVEL 01</span><h2 id="imageName">1.png</h2></div><label class="check"><input id="bounds" type="checkbox">显示包围圆</label></div>
+ <div class="canvas-wrap"><canvas id="editor" width="640" height="640" aria-label="碰撞范围画布：拖动圆内移动，拖动右侧圆点缩放"></canvas></div>
+ <p class="hint">拖动圆内移动 · 拖动右侧圆点缩放 · 滚轮微调半径</p>
+ <div class="mask-tools"><button id="autoOutline">按主体轮廓生成</button><label class="check"><input id="eraseMask" type="checkbox">擦除文字 / 符号</label><label class="check">笔刷 <input id="brush" type="range" min="8" max="80" value="28" aria-label="擦除笔刷大小"></label><button id="resetMask">重置蒙版</button></div>
+ <p class="hint">红色区域不参与轮廓计算，原图不会修改。擦除后需重新点击生成。</p>
+ <div class="status" id="status" role="status" aria-live="polite">已载入，所有等级默认使用一个圆。</div>
+ </section>
+ <aside class="inspector"><section class="card"><div class="section-head"><h2>调整碰撞圆</h2><span id="partCount">1 个圆</span></div><p class="muted">主体贴合圆，耳朵和装饰留在圆外。</p><label class="field">当前圆<select id="circleSelect" aria-label="当前碰撞圆"></select></label>
+ <div class="fields"><label class="field">圆心 X<input id="cx" type="number" min="0" max="512" step="1"></label><label class="field">圆心 Y<input id="cy" type="number" min="0" max="512" step="1"></label></div>
+ <label class="field">半径（像素）<input id="radius" type="number" min="8" max="256" step="1"></label><input id="radiusSlider" aria-label="半径滑块" type="range" min="8" max="256" step="1">
+ <div class="row"><button id="add">＋ 辅助圆</button><button id="remove">删除当前圆</button></div><button class="wide" id="resetShape">此图恢复单圆</button>
+ <details><summary>从其他工具填写像素参数</summary><p class="muted">原图左上角为 (0,0)，尺寸 512×512；每个圆为 [圆心X, 圆心Y, 半径]。</p><textarea id="pixelInput" aria-label="外部像素参数" placeholder="[[256, 320, 150]]"></textarea><button id="applyPixels">应用到此图</button></details></section>
+ <section class="card"><h2>带走你的设置</h2><p class="muted">导出 parts.js 后，替换游戏里的 v1/assets/fruits/parts.js，其他人打开也会用这套碰撞范围。</p><button class="wide" id="export">下载 parts.js</button><button class="wide" id="import">导入 parts.js</button><input id="importFile" type="file" accept=".js,.json" hidden><details><summary>查看此级参数</summary><pre id="code"></pre></details></section>
+ <p class="footnote">保存仅保存在当前浏览器。导出文件才会写入可分享的配置。</p></aside>
+</main>
+<dialog id="preview"><header class="section-head"><div><h2>试玩合成大绿猫</h2><span class="muted">本次试玩已应用全部编辑结果</span></div><div class="row"><label class="check"><input id="showCollision" type="checkbox" checked>显示碰撞圆</label><button id="closePreview">返回编辑</button></div></header><iframe id="gameFrame" title="合成大绿猫试玩"></iframe></dialog>
+<script src="assets/fruits/parts.js"></script><script src="assets/image-data.js"></script><script src="collision-config.js"></script><script src="outline.js"></script><script src="editor.js"></script>
+</body></html>

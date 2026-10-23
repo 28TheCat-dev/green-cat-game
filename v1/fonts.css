@@ -1,0 +1,11 @@
+/* 本地字体：断网打开也能显示；授权见 assets/fonts/OFL.txt。 */
+@font-face {
+  font-family: 'Green Cat Happy';
+  src: url('assets/fonts/ZCOOLKuaiLe-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+:root {
+  --font-cute: 'Green Cat Happy', 'YouYuan', '幼圆', 'Microsoft YaHei', sans-serif;
+}
